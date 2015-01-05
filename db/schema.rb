@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105012437) do
+ActiveRecord::Schema.define(version: 20150105031741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20150105012437) do
     t.integer "asca_domain_id", null: false
   end
 
+  add_index "asca_domains_logs", ["log_id", "asca_domain_id"], name: "index_asca_domains_logs_on_log_id_and_asca_domain_id", using: :btree
+
   create_table "classifications", force: true do |t|
     t.string   "category"
     t.datetime "created_at"
@@ -38,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150105012437) do
     t.integer "student_id",        null: false
   end
 
+  add_index "classifications_students", ["classification_id", "student_id"], name: "index_classifications_students_on_classification_and_student_id", using: :btree
+
   create_table "ethnicities", force: true do |t|
     t.string   "group"
     t.datetime "created_at"
@@ -48,6 +52,8 @@ ActiveRecord::Schema.define(version: 20150105012437) do
     t.integer "student_id",   null: false
     t.integer "ethnicity_id", null: false
   end
+
+  add_index "ethnicities_students", ["student_id", "ethnicity_id"], name: "index_ethnicities_students_on_student_id_and_ethnicity_id", using: :btree
 
   create_table "genders", force: true do |t|
     t.string   "classification"
@@ -72,6 +78,8 @@ ActiveRecord::Schema.define(version: 20150105012437) do
     t.integer "group_id",   null: false
   end
 
+  add_index "groups_students", ["student_id", "group_id"], name: "index_groups_students_on_student_id_and_group_id", using: :btree
+
   create_table "interventions", force: true do |t|
     t.string   "description"
     t.datetime "created_at"
@@ -82,6 +90,8 @@ ActiveRecord::Schema.define(version: 20150105012437) do
     t.integer "log_id",          null: false
     t.integer "intervention_id", null: false
   end
+
+  add_index "interventions_logs", ["log_id", "intervention_id"], name: "index_interventions_logs_on_log_id_and_intervention_id", using: :btree
 
   create_table "logs", force: true do |t|
     t.text     "description"
@@ -94,20 +104,28 @@ ActiveRecord::Schema.define(version: 20150105012437) do
     t.integer "referral_id", null: false
   end
 
+  add_index "logs_referrals", ["log_id", "referral_id"], name: "index_logs_referrals_on_log_id_and_referral_id", using: :btree
+
   create_table "logs_seen_bies", id: false, force: true do |t|
     t.integer "log_id",     null: false
     t.integer "seen_by_id", null: false
   end
+
+  add_index "logs_seen_bies", ["log_id", "seen_by_id"], name: "index_logs_seen_bies_on_log_id_and_seen_by_id", using: :btree
 
   create_table "logs_students", id: false, force: true do |t|
     t.integer "log_id",     null: false
     t.integer "student_id", null: false
   end
 
+  add_index "logs_students", ["log_id", "student_id"], name: "index_logs_students_on_log_id_and_student_id", using: :btree
+
   create_table "logs_types", id: false, force: true do |t|
     t.integer "log_id",  null: false
     t.integer "type_id", null: false
   end
+
+  add_index "logs_types", ["log_id", "type_id"], name: "index_logs_types_on_log_id_and_type_id", using: :btree
 
   create_table "referrals", force: true do |t|
     t.string   "source"
