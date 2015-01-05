@@ -1,1 +1,11 @@
-<h2>Logs New</h2>
+<h1>Logs New</h1>
+
+<h2>Log New Session</h2>
+<%= form_for @log do |f| %>
+	<p>
+		<%= f.label :description %>
+		<%= f.text_area :description %>
+	</p>
+
+	<p><%= f.submit %></p>
+<% end %>

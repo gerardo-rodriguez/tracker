@@ -1,1 +1,17 @@
-<h2>Logs Index</h2>
+<h1>Logs Index</h1>
+
+<p><%= link_to 'Create a new log', new_log_path %></p>
+
+<h2>All Logs</h2>
+<table>
+	<tr>
+		<th>Log ID</th>
+		<th>Description</th>
+	</tr>
+	<% @logs.each do |log| %>
+	<tr>
+		<th><%= log.id %></th>
+		<th><%= log.description %></th>
+	</tr>
+	<% end %>
+</table>

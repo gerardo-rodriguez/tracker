@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150104190041) do
+ActiveRecord::Schema.define(version: 20150105012437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20150104190041) do
     t.datetime "updated_at"
   end
 
-  create_table "asca_domains_sessions", id: false, force: true do |t|
-    t.integer "session_id",     null: false
+  create_table "asca_domains_logs", id: false, force: true do |t|
+    t.integer "log_id",         null: false
     t.integer "asca_domain_id", null: false
   end
 
@@ -78,9 +78,35 @@ ActiveRecord::Schema.define(version: 20150104190041) do
     t.datetime "updated_at"
   end
 
-  create_table "interventions_sessions", id: false, force: true do |t|
-    t.integer "session_id",      null: false
+  create_table "interventions_logs", id: false, force: true do |t|
+    t.integer "log_id",          null: false
     t.integer "intervention_id", null: false
+  end
+
+  create_table "logs", force: true do |t|
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "logs_referrals", id: false, force: true do |t|
+    t.integer "log_id",      null: false
+    t.integer "referral_id", null: false
+  end
+
+  create_table "logs_seen_bies", id: false, force: true do |t|
+    t.integer "log_id",     null: false
+    t.integer "seen_by_id", null: false
+  end
+
+  create_table "logs_students", id: false, force: true do |t|
+    t.integer "log_id",     null: false
+    t.integer "student_id", null: false
+  end
+
+  create_table "logs_types", id: false, force: true do |t|
+    t.integer "log_id",  null: false
+    t.integer "type_id", null: false
   end
 
   create_table "referrals", force: true do |t|
@@ -89,36 +115,10 @@ ActiveRecord::Schema.define(version: 20150104190041) do
     t.datetime "updated_at"
   end
 
-  create_table "referrals_sessions", id: false, force: true do |t|
-    t.integer "session_id",  null: false
-    t.integer "referral_id", null: false
-  end
-
   create_table "seen_bies", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "seen_bies_sessions", id: false, force: true do |t|
-    t.integer "session_id", null: false
-    t.integer "seen_by_id", null: false
-  end
-
-  create_table "sessions", force: true do |t|
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sessions_students", id: false, force: true do |t|
-    t.integer "session_id", null: false
-    t.integer "student_id", null: false
-  end
-
-  create_table "sessions_types", id: false, force: true do |t|
-    t.integer "session_id", null: false
-    t.integer "type_id",    null: false
   end
 
   create_table "students", force: true do |t|
