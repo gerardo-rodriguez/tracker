@@ -1,11 +1,17 @@
 <h1>Logs New</h1>
 
 <h2>Log New Session</h2>
-<%= form_for @log do |f| %>
+<%= form_for @log do |log_form| %>
+	<%= fields_for @student do |student_form| %>
+		<p>
+			<%= student_form.label :ssid %>
+			<%= student_form.text_field :ssid %>
+		</p>
+	<% end %>
 	<p>
-		<%= f.label :description %>
-		<%= f.text_area :description %>
+		<%= log_form.label :description %>
+		<%= log_form.text_area :description %>
 	</p>
 
-	<p><%= f.submit %></p>
+	<p><%= log_form.submit %></p>
 <% end %>
